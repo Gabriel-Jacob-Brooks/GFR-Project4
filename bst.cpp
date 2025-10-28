@@ -180,10 +180,34 @@ void bst<T>::trim( long low, long high ) {
 //==========================================================
 template <class T>
 string bst<T>::to_string( void ) {
-  ostringstream oss;
-  //code stuff 
+    if (root == nullptr) 
+        return "";
+    ostringstream oss;
+    queue<Node*> q;
+    q.push(root);
+    bool first = true;
+    
+    while (!q.empty()) {
+        Node* current = q.front();
+        q.pop();
+        if (current->left) q.push(current->left);
+        if (!first) oss << " ";
+        oss << current->key;
+        first = false;
+        
+        if (current->left) q.push(current->left);
+        if (current->right) q.push(current->right);
+    }
+    
+    return oss.str();
 
-  return oss;
+}
 
+template <class T>
+string bst<T>::to_string( void ) {
+    
+    
+    ostringstream oss;
+    
 }
 #endif
