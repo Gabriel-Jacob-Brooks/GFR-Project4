@@ -26,7 +26,7 @@ private:
     
     Node* root;
 public:
-    bst(int m); //instantiate
+    bst(); //instantiate
     ~bst(); // destructor
     void empty(); // checks if its empty
     void insert (const T& d, const long&  k);

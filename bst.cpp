@@ -15,8 +15,8 @@ using namespace std;
 
 
 template <class T>
-bst<T>::bst( int m ) {
-
+bst<T>::bst() {
+    root=nullptr;
 
 }
 
@@ -49,7 +49,7 @@ void bst<T>::empty( void ) {
 //==========================================================
 template <class T>
 void bst<T>::insert( const T& d, const long&  k ) {
-
+    Node<T>* x = new Node<T>;
   
 }
 
