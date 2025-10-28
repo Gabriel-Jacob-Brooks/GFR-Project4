@@ -5,7 +5,7 @@
 
 #ifndef BST_H
 #define BST_H
-
+#include "bst.cpp"
 #include "iostream"
 #include "cmath"
 using namespace std;
@@ -14,9 +14,17 @@ using namespace std;
 template <class T>
 class bst {
 private:
-    int size; //size of T array 
-    DoublyLinkedList<T>* table;
+    struct Node {
+        T data;
+        long key;
+        Node* left;
+        Node* right;
+        Node* parent;
+        Node(T d, long k) : data(d), key(k), left(nullptr), right(nullptr), parent(nullptr) {}
 
+    };
+    
+    Node* root;
 public:
     bst(int m); //instantiate
     ~bst(); // destructor
@@ -35,6 +43,6 @@ public:
 
 };
 
-#include "bst.cpp"
+
 
 #endif
