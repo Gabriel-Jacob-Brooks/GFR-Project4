@@ -12,7 +12,7 @@ using namespace std;
 
 //==========================================================
 template <class T>
-class HashTable {
+class bst {
 private:
     int size; //size of T array 
     DoublyLinkedList<T>* table;
