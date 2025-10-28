@@ -8,6 +8,7 @@
 #include "bst.cpp"
 #include "iostream"
 #include "cmath"
+#include "string"
 using namespace std;
 
 //==========================================================
@@ -28,18 +29,18 @@ private:
 public:
     bst(int m); //instantiate
     ~bst(); // destructor
-    void empty(); // checks if its empty
+    bool empty(); // checks if its empty
     void insert (const T& d, const long&  k);
-    bool get (const long&  k); //returns data associated with key k. // Might be implemented in other DLL???
+    long get (const long&  k); //returns data associated with key k. // Might be implemented in other DLL???
     void remove (long k);
-    void max_data();
-    void max_key();
-    void min_data();
-    void min_key();
-    void successor(long k);
-    void in_order();
+    long max_data();
+    long max_key();
+    long min_data();
+    long min_key();
+    long successor(long k);
+    long in_order();
     void trim(long low, long high);
-    string to_string ();
+    string to_string();
 
 };
 
