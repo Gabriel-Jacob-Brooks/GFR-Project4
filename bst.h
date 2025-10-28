@@ -39,7 +39,7 @@ public:
     void successor(long k);
     void in_order();
     void trim(long low, long high);
-
+    string to_string ();
 
 };
 

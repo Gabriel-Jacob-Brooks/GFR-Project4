@@ -53,50 +53,122 @@ void bst<T>::insert( const T& d, const long&  k ) {
   
 }
 
+//==========================================================
+// get
+// 
+// parameters
+// pre-condition: 
+// post-condition: 
+//==========================================================
 template <class T>
 bool bst<T>::get( const long&  k ) {
 
 
 }
 
+//==========================================================
+// remove 
+// 
+// parameters
+// pre-condition: 
+// post-condition: 
+//==========================================================
 template <class T>
 void bst<T>::remove( long k ) {
 
 
 }
 
+//==========================================================
+// max_data
+// 
+// parameters
+// pre-condition: 
+// post-condition: 
+//==========================================================
 template <class T>
 void bst<T>::max_data( void ) {
 
 }
 
+//==========================================================
+// max_key
+// 
+// parameters
+// pre-condition: 
+// post-condition: 
+//==========================================================
 template <class T>
 void bst<T>::max_key( void ) {
 
 
 }
 
+//==========================================================
+// min_data
+// 
+// parameters
+// pre-condition: 
+// post-condition: 
+//==========================================================
 template <class T>
 void bst<T>::min_data( void ) {
 
 
 }
 
+//==========================================================
+// successor
+// 
+// parameters
+// pre-condition: 
+// post-condition: 
+//==========================================================
 template <class T>
 void bst<T>::successor( long k ) {
 
 
 }
 
+//==========================================================
+// in_order
+// 
+// parameters
+// pre-condition: 
+// post-condition: 
+//==========================================================
 template <class T>
 void bst<T>::in_order( void ) {
 
 
 }
 
+//==========================================================
+// trim
+// 
+// parameters
+// pre-condition: 
+// post-condition: 
+//==========================================================
 template <class T>
 void bst<T>::trim( long low, long high ) {
 
   
+}
+
+//==========================================================
+// to_string
+// 
+// parameters
+// pre-condition: 
+// post-condition: 
+//==========================================================
+template <class T>
+string bst<T>::to_string( void ) {
+  ostringstream oss;
+  //code stuff 
+
+  return oss;
+
 }
 #endif
