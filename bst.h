@@ -15,7 +15,6 @@ template <class T>
 class HashTable {
 private:
     int size; //size of T array 
-    DoublyLinkedList<T>* table;
 
 public:
     bst(int m); //instantiate
