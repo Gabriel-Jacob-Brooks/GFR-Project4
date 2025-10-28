@@ -14,6 +14,10 @@ using namespace std;
 #define BST_CPP
 
 
+//====================================================
+// BST FUNCTIONS
+//====================================================
+
 template <class T>
 bst<T>::bst() {
     root=nullptr;
@@ -29,21 +33,21 @@ bst<T>::~bst( void ) {
 //==========================================================
 // empty
 // checks if the bst is empty.
-// 
+// parameters: none
 // pre-condition: a valid created bst.
 // post-condition: a bool depicting whether the bst is empty
 //==========================================================
 template <class T>
-void bst<T>::empty( void ) {
+bool bst<T>::empty( void ) {
 
 
 }
 
 //==========================================================
 // insert
-// Inserts key k into a valid bst
-// parameters: T d - element's template data
-//             int k - numeric key value
+// inserts key k into a valid bst
+// parameters: T& d - element's template data
+//             const long& k - numeric key value
 // pre-condition: 
 // post-condition: 
 //==========================================================
@@ -55,21 +59,21 @@ void bst<T>::insert( const T& d, const long&  k ) {
 
 //==========================================================
 // get
-// 
-// parameters
+// returns key from node with the correct associated data
+// parameters: const long& k - numeric key value
 // pre-condition: 
 // post-condition: 
 //==========================================================
 template <class T>
-bool bst<T>::get( const long&  k ) {
+long bst<T>::get( const long&  k ) {
 
 
 }
 
 //==========================================================
 // remove 
-// 
-// parameters
+// deletes the first node it finds with key k (closest to root)
+// parameters: long k - numeric key value
 // pre-condition: 
 // post-condition: 
 //==========================================================
@@ -82,24 +86,24 @@ void bst<T>::remove( long k ) {
 //==========================================================
 // max_data
 // 
-// parameters
+// parameters: none
 // pre-condition: 
 // post-condition: 
 //==========================================================
 template <class T>
-void bst<T>::max_data( void ) {
+long bst<T>::max_data( void ) {
 
 }
 
 //==========================================================
 // max_key
 // 
-// parameters
+// parameters: none
 // pre-condition: 
 // post-condition: 
 //==========================================================
 template <class T>
-void bst<T>::max_key( void ) {
+long bst<T>::max_key( void ) {
 
 
 }
@@ -107,12 +111,12 @@ void bst<T>::max_key( void ) {
 //==========================================================
 // min_data
 // 
-// parameters
+// parameters: none
 // pre-condition: 
 // post-condition: 
 //==========================================================
 template <class T>
-void bst<T>::min_data( void ) {
+long bst<T>::min_data( void ) {
 
 
 }
@@ -120,12 +124,12 @@ void bst<T>::min_data( void ) {
 //==========================================================
 // successor
 // 
-// parameters
+// parameters: long k - numeric key value
 // pre-condition: 
 // post-condition: 
 //==========================================================
 template <class T>
-void bst<T>::successor( long k ) {
+long bst<T>::successor( long k ) {
 
 
 }
@@ -133,12 +137,12 @@ void bst<T>::successor( long k ) {
 //==========================================================
 // in_order
 // 
-// parameters
+// parameters: none
 // pre-condition: 
 // post-condition: 
 //==========================================================
 template <class T>
-void bst<T>::in_order( void ) {
+long bst<T>::in_order( void ) {
 
 
 }
@@ -146,7 +150,8 @@ void bst<T>::in_order( void ) {
 //==========================================================
 // trim
 // 
-// parameters
+// parameters:  long low - 
+//              long high - 
 // pre-condition: 
 // post-condition: 
 //==========================================================
@@ -159,7 +164,7 @@ void bst<T>::trim( long low, long high ) {
 //==========================================================
 // to_string
 // 
-// parameters
+// parameters: none
 // pre-condition: 
 // post-condition: 
 //==========================================================
