@@ -66,7 +66,17 @@ void bst<T>::insert( const T& d, const long&  k ) {
 //==========================================================
 template <class T>
 long bst<T>::get( const long&  k ) {
-
+    Node* current = root;
+    while (current != nullptr) {
+        if (k == current->key) {
+            return current->data;
+        } else if (k < current->key) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+    return T(); 
 
 }
 
