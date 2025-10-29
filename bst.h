@@ -5,7 +5,6 @@
 
 #ifndef BST_H
 #define BST_H
-#include "bst.cpp"
 #include "iostream"
 #include "cmath"
 #include "string"

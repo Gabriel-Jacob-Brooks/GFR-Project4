@@ -27,8 +27,7 @@ bst<T>::bst() {
 
 template <class T>
 bst<T>::~bst( void ) {
-
-
+ 
 }
 //==========================================================
 // empty
@@ -90,7 +89,17 @@ long bst<T>::get( const long&  k ) {
 template <class T>
 void bst<T>::remove( long k ) {
 
+    Node* curr = root;
 
+    while (curr != nullptr) {
+        if (k == curr->key)
+            delete curr->key;
+        else if (k < curr->key)
+            curr = curr -> left;
+        else
+            curr = curr -> right;
+        }
+    return;
 }
 
 //==========================================================
@@ -203,11 +212,4 @@ string bst<T>::to_string( void ) {
 
 }
 
-template <class T>
-string bst<T>::to_string( void ) {
-    
-    
-    ostringstream oss;
-    
-}
 #endif
