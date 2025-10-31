@@ -91,7 +91,7 @@ void bst<T>::remove( long k ) {
 
     Node* curr = root;
 
-    while (curr != nullptr) {
+    while (curr != nullptr) { // finding key in tree
         if (k == curr->key)
             delete curr->key;
         else if (k < curr->key)
@@ -99,6 +99,11 @@ void bst<T>::remove( long k ) {
         else
             curr = curr -> right;
         }
+        // delete key in tree
+        if (curr -> left == nullptr)
+            transplant(curr, curr -> right);
+        else if (curr -> right == nullptr)
+            transplant(curr, curr -> left);
     return;
 }
 
@@ -111,7 +116,8 @@ void bst<T>::remove( long k ) {
 //==========================================================
 template <class T>
 long bst<T>::max_data( void ) {
-
+    Node* max = root.max_key(); // retreive key not data fix 
+    return max;
 }
 
 //==========================================================
@@ -124,7 +130,12 @@ long bst<T>::max_data( void ) {
 template <class T>
 long bst<T>::max_key( void ) {
 
+    Node* curr = root;
 
+    while (curr -> right != nullptr)
+        curr = curr -> right;
+
+    return curr -> key;
 }
 
 //==========================================================
@@ -137,6 +148,25 @@ long bst<T>::max_key( void ) {
 template <class T>
 long bst<T>::min_data( void ) {
 
+    Node* min = root.min_key(); // retreives key not data fix
+    return min;
+}
+
+//==========================================================
+// min_key
+// 
+// parameters: none
+// pre-condition: 
+// post-condition: 
+//==========================================================
+template <class T>
+long bst<T>::min_key( void ) {
+    Node* curr = root;
+
+    while (curr -> left != nullptr)
+        curr = curr -> left;
+
+    return curr -> key;
 
 }
 
@@ -166,6 +196,17 @@ long bst<T>::in_order( void ) {
 
 }
 
+template <class T>
+void bst<T>::transplant( const long& x, const long& y) {
+    if (x->parent == nullptr) // end to check logic
+        root = y;
+    else if (x == x->parent->left)
+        x->parent->left = y;
+    else (x->parent->right = y)
+    if ( y == nullptr )
+        y->parent = x->parent;
+
+}
 //==========================================================
 // trim
 // 
