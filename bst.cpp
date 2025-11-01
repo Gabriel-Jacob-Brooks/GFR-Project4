@@ -192,8 +192,23 @@ long bst<T>::successor( long k ) {
 //==========================================================
 template <class T>
 long bst<T>::in_order( void ) {
+    ostringstream oss;
+    in_order_helper(root, oss);
+    return oss.str();
 
+}
 
+// Add helper function
+template <class T>
+void bst<T>::in_order_helper(Node* node, ostringstream& oss) {
+    static bool first = true;
+    if (node == nullptr) return;
+    
+    in_order_helper(node->left, oss);    // Left subtree
+    if (!first) oss << " ";
+    oss << node->key;                    // Current node
+    first = false;
+    in_order_helper(node->right, oss);   // Right subtree
 }
 
 template <class T>
