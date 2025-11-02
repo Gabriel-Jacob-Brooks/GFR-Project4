@@ -268,6 +268,23 @@ K bst<D, K>::successor( K k ) {
 // //==========================================================
 // template <class T>
 // long bst<T>::in_order( void ) {
+template <class D, class K>
+string BST<D, K>::in_order() {
+    ostringstream oss;                 // Move here, not static
+    in_order_helper(root, oss);    // Pass first as reference
+    return oss.str();
+}
+
+template <class D, class K>
+void BST<D, K>::in_order_helper(Node* node, ostringstream& oss) {
+    if (node == nullptr) return;
+    
+    in_order_helper(node->left, oss);     // Pass first along
+    if (!first) oss << " ";
+    oss << node->key;
+    first = false;
+    in_order_helper(node->right, oss);    // Pass first along
+}
 
 
 // }
@@ -317,5 +334,6 @@ string bst<T>::to_string( void ) {
     return oss.str();
 
 }
+
 
 #endif
