@@ -34,9 +34,9 @@ public:
     void insert (const D& d, const K&  k);
     D get (const K&  k); //returns data associated with key k. // Might be implemented in other DLL???
     void remove (K k);
-    K max_data();
+    D max_data();
     K max_key();
-    K min_data();
+    D min_data();
     K min_key();
     K successor(K k);
     K in_order();
@@ -174,7 +174,17 @@ void BST<D, K>::remove( K k ) {
     return;
 
 }
+template <class D, class K>
+void BST<D, K>::transplant( Node *x, Node *y) {
+    if (x->parent == nullptr) // end to check logic
+        root = y;
+    else if (x == x->parent->left)
+        x->parent->left = y;
+    else (x->parent->right = y);
+    if ( y == nullptr )
+        y->parent = x->parent;
 
+}
 //==========================================================
 // max_data
 // 
@@ -183,8 +193,8 @@ void BST<D, K>::remove( K k ) {
 // post-condition: 
 //==========================================================
 template <class D, class K>
-K BST<D, K>::max_data( void ) {
-    Node* max = root.max_key(); // retreive key not data fix 
+D BST<D, K>::max_data( void ) {
+    D max = root.max_key(); // retreive key not data fix 
     return max;
 }
 
@@ -205,7 +215,6 @@ K BST<D, K>::max_key( void ) {
         curr = curr -> right;
 
     return curr -> key;
-
 }
 
 //==========================================================
@@ -216,9 +225,9 @@ K BST<D, K>::max_key( void ) {
 // post-condition: 
 //==========================================================
 template <class D, class K>
-K BST<D, K>::min_data( void ) {
-    Node* min = root.min_key(); // retreives key not data fix
-    return min->data;
+D BST<D, K>::min_data( void ) {
+    D min = root.min_key(); // retreives key not data fix
+    return min;
 
 }
 //==========================================================
