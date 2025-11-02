@@ -212,12 +212,12 @@ void bst<T>::in_order_helper(Node* node, ostringstream& oss) {
 }
 
 template <class T>
-void bst<T>::transplant( const long& x, const long& y) {
+void bst<T>::transplant( Node *x, Node *y) {
     if (x->parent == nullptr) // end to check logic
         root = y;
     else if (x == x->parent->left)
         x->parent->left = y;
-    else (x->parent->right = y)
+    else (x->parent->right = y);
     if ( y == nullptr )
         y->parent = x->parent;
 

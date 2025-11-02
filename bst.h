@@ -39,7 +39,7 @@ public:
     long successor(long k);
     long in_order();
     void in_order_helper(Node* node, ostringstream& oss);
-    void transplant ( const long& x, const long& y);
+    void transplant ( Node *x, Node *y);
     void trim(long low, long high);
     string to_string();
 
