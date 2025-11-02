@@ -123,6 +123,8 @@ void bst<D, K>::remove( K k ) {
     
     Node* curr = root;
 
+    Node* curr = root;
+
     while (curr != nullptr) { // finding key in tree
         if (k == curr->key)
             delete curr->key;
@@ -137,7 +139,6 @@ void bst<D, K>::remove( K k ) {
         else if (curr -> right == nullptr)
             transplant(curr, curr -> left);
     return;
-
 }
 
 //==========================================================
@@ -170,7 +171,6 @@ K bst<D, K>::max_key( void ) {
         curr = curr -> right;
 
     return curr -> key;
-
 }
 
 //==========================================================
@@ -205,7 +205,35 @@ K bst<D, K>::min_key( void ) {
 // ==========================================================
 // successor
 
-// parameters: V k - numeric key value
+// Add helper function
+template <class T>
+void bst<T>::in_order_helper(Node* node, ostringstream& oss) {
+    static bool first = true;
+    if (node == nullptr) return;
+    
+    in_order_helper(node->left, oss);    // Left subtree
+    if (!first) oss << " ";
+    oss << node->key;                    // Current node
+    first = false;
+    in_order_helper(node->right, oss);   // Right subtree
+}
+
+template <class T>
+void bst<T>::transplant( const long& x, const long& y) {
+    if (x->parent == nullptr) // end to check logic
+        root = y;
+    else if (x == x->parent->left)
+        x->parent->left = y;
+    else (x->parent->right = y)
+    if ( y == nullptr )
+        y->parent = x->parent;
+
+}
+//==========================================================
+// trim
+// 
+// parameters:  long low - 
+//              long high - 
 // pre-condition: 
 // post-condition: 
 // ==========================================================
@@ -265,9 +293,9 @@ K bst<D, K>::successor( K k ) {
 // pre-condition: 
 // post-condition: 
 //==========================================================
-template <class D, class K>
-string bst<D, K>::to_string( void ) {
- if (root == nullptr) 
+template <class T>
+string bst<T>::to_string( void ) {
+    if (root == nullptr) 
         return "";
     ostringstream oss;
     queue<Node*> q;
@@ -289,6 +317,5 @@ string bst<D, K>::to_string( void ) {
     return oss.str();
 
 }
-
 
 #endif
