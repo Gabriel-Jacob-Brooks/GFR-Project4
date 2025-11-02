@@ -197,8 +197,16 @@ void BST<D, K>::transplant( Node *x, Node *y) {
 //==========================================================
 template <class D, class K>
 D BST<D, K>::max_data( void ) {
-    D max = root.max_key(); // retreive key not data fix 
-    return max;
+
+    Node* curr = root;
+
+    while (curr -> right != nullptr)
+        curr = curr -> right;
+
+    return D();
+
+    // D max = root.max_key(); // retreive key not data fix 
+    // return max;
 }
 
 
@@ -229,9 +237,14 @@ K BST<D, K>::max_key( void ) {
 //==========================================================
 template <class D, class K>
 D BST<D, K>::min_data( void ) {
-    D min = root.min_key(); // retreives key not data fix
-    return min;
+    Node* curr = root;
 
+    while (curr->left != nullptr)
+        curr = curr->left;
+
+    return D();
+    // D min = root.min_key(); // retreives key not data fix
+    // return min;
 }
 //==========================================================
 // min_key
