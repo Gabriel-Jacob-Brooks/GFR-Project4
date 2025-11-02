@@ -39,7 +39,7 @@ public:
     D min_data();
     K min_key();
     K successor(K k);
-    K in_order();
+    string in_order();
     void in_order_helper(Node* node, ostringstream& oss);
     void transplant ( Node *x, Node *y);
     void trim(long low, long high);
@@ -305,11 +305,33 @@ K BST<D, K>::successor( K k ) {
 // // pre-condition: 
 // // post-condition: 
 // //==========================================================
-// template <class T>
-// long bst<T>::in_order( void ) {
+template <class D, class K>
+string BST<D, K>::in_order() {
+    ostringstream oss;                 // Move here, not static
+    in_order_helper(root, oss);    // Pass first as reference
+    return oss.str();
+}
+
+// //==========================================================
+// // in_order_helper
+// // 
+// // parameters: none
+// // pre-condition: 
+// // post-condition: 
+// //==========================================================
+template <class D, class K>
+void BST<D, K>::in_order_helper(Node* node, ostringstream& oss) {
+    static bool first = true;
+    if (node == nullptr) return;
+    
+    in_order_helper(node->left, oss);    // Left subtree
+    if (!first) oss << " ";
+    oss << node->key;                    // Current node
+    first = false;
+    in_order_helper(node->right, oss);   // Right subtree
 
 
-// }
+}
 
 // //==========================================================
 // // trim
