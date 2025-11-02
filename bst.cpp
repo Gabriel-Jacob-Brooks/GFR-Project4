@@ -5,29 +5,37 @@
 //====================================================
 
 #include "iostream"
-#include "bst.h"
+#include "queue"
 #include "string"
 #include "sstream"
 using namespace std;
 
 #ifndef BST_CPP
 #define BST_CPP
-
+#include "bst.h"
 
 //====================================================
 // BST FUNCTIONS
 //====================================================
 
-template <class T>
-bst<T>::bst() {
+template <class D, class K>
+bst<D, K>::bst() {
     root=nullptr;
-
 }
 
 
-template <class T>
-bst<T>::~bst( void ) {
- 
+template <class D, class K>
+bst<D, K>::~bst() {
+    clear(root);
+}
+
+template <class D, class K>
+void bst<D, K>::clear(Node* node) {
+    if (node != nullptr) {
+        clear(node->left);
+        clear(node->right);
+        delete node;
+    }
 }
 //==========================================================
 // empty
@@ -36,10 +44,9 @@ bst<T>::~bst( void ) {
 // pre-condition: a valid created bst.
 // post-condition: a bool depicting whether the bst is empty
 //==========================================================
-template <class T>
-bool bst<T>::empty( void ) {
-
-
+template <class D, class K>
+bool bst<D, K>::empty() {
+    return root == nullptr;
 }
 
 //==========================================================
@@ -50,10 +57,35 @@ bool bst<T>::empty( void ) {
 // pre-condition: 
 // post-condition: 
 //==========================================================
-template <class T>
-void bst<T>::insert( const T& d, const long&  k ) {
-    Node<T>* x = new Node<T>;
-  
+template <class D, class K>
+void bst<D, K>::insert( const D& d, const K&  k ) {
+    Node* z = new Node(d, k);
+    Node* x = root;
+    Node* y = nullptr;
+    {
+        while(x != nullptr){
+            y=x;
+            if (z->key < x->key){
+                x = x->left;
+            }
+            else{
+                x =x->right;
+            }
+        }
+        z->parent = y;
+        if(y==nullptr){
+            root = z;
+            return;
+        }
+        else if (z->key < y->key)
+        {
+            y->left = z;
+        }
+        else{
+            y->right = z;
+        }
+
+    }
 }
 
 //==========================================================
@@ -63,8 +95,8 @@ void bst<T>::insert( const T& d, const long&  k ) {
 // pre-condition: 
 // post-condition: 
 //==========================================================
-template <class T>
-long bst<T>::get( const long&  k ) {
+template <class D, class K>
+D bst<D, K>::get( const K&  k ) {
     Node* current = root;
     while (current != nullptr) {
         if (k == current->key) {
@@ -75,7 +107,7 @@ long bst<T>::get( const long&  k ) {
             current = current->right;
         }
     }
-    return T(); 
+    return D();
 
 }
 
@@ -86,8 +118,10 @@ long bst<T>::get( const long&  k ) {
 // pre-condition: 
 // post-condition: 
 //==========================================================
-template <class T>
-void bst<T>::remove( long k ) {
+template <class D, class K>
+void bst<D, K>::remove( K k ) {
+    
+    Node* curr = root;
 
     Node* curr = root;
 
@@ -114,11 +148,12 @@ void bst<T>::remove( long k ) {
 // pre-condition: 
 // post-condition: 
 //==========================================================
-template <class T>
-long bst<T>::max_data( void ) {
+template <class D, class K>
+K bst<D, K>::max_data( void ) {
     Node* max = root.max_key(); // retreive key not data fix 
     return max;
 }
+
 
 //==========================================================
 // max_key
@@ -127,8 +162,8 @@ long bst<T>::max_data( void ) {
 // pre-condition: 
 // post-condition: 
 //==========================================================
-template <class T>
-long bst<T>::max_key( void ) {
+template <class D, class K>
+K bst<D, K>::max_key( void ) {
 
     Node* curr = root;
 
@@ -145,13 +180,12 @@ long bst<T>::max_key( void ) {
 // pre-condition: 
 // post-condition: 
 //==========================================================
-template <class T>
-long bst<T>::min_data( void ) {
-
+template <class D, class K>
+K bst<D, K>::min_data( void ) {
     Node* min = root.min_key(); // retreives key not data fix
-    return min;
-}
+    return min->data;
 
+}
 //==========================================================
 // min_key
 // 
@@ -159,44 +193,17 @@ long bst<T>::min_data( void ) {
 // pre-condition: 
 // post-condition: 
 //==========================================================
-template <class T>
-long bst<T>::min_key( void ) {
+template <class D, class K>
+K bst<D, K>::min_key( void ) {
     Node* curr = root;
 
-    while (curr -> left != nullptr)
-        curr = curr -> left;
+    while (curr->left != nullptr)
+        curr = curr->left;
 
-    return curr -> key;
-
+    return curr->key;
 }
-
-//==========================================================
+// ==========================================================
 // successor
-// 
-// parameters: long k - numeric key value
-// pre-condition: 
-// post-condition: 
-//==========================================================
-template <class T>
-long bst<T>::successor( long k ) {
-
-
-}
-
-//==========================================================
-// in_order
-// 
-// parameters: none
-// pre-condition: 
-// post-condition: 
-//==========================================================
-template <class T>
-long bst<T>::in_order( void ) {
-    ostringstream oss;
-    in_order_helper(root, oss);
-    return oss.str();
-
-}
 
 // Add helper function
 template <class T>
@@ -212,12 +219,12 @@ void bst<T>::in_order_helper(Node* node, ostringstream& oss) {
 }
 
 template <class T>
-void bst<T>::transplant( const long& x, const long& y) {
+void bst<T>::transplant( Node *x, Node *y) {
     if (x->parent == nullptr) // end to check logic
         root = y;
     else if (x == x->parent->left)
         x->parent->left = y;
-    else (x->parent->right = y)
+    else (x->parent->right = y);
     if ( y == nullptr )
         y->parent = x->parent;
 
@@ -229,12 +236,55 @@ void bst<T>::transplant( const long& x, const long& y) {
 //              long high - 
 // pre-condition: 
 // post-condition: 
-//==========================================================
-template <class T>
-void bst<T>::trim( long low, long high ) {
+// ==========================================================
+template <class D, class K>
+K bst<D, K>::successor( K k ) {
+    Node* x = nullptr;
+    x = root;
+    if (get(k) != NULL){
+        if(x->right != nullptr){
+            x = x->right;
+            while(x->left != nullptr){
+                x = x->left;
+            }
+            return x->key;
+        }else{
+            while(x->key < k){
+                x->parent;
+            }
+            return x->key;
+        }
+    } else {
+        return 0;
+    }
+}
+
+// //==========================================================
+// // in_order
+// // 
+// // parameters: none
+// // pre-condition: 
+// // post-condition: 
+// //==========================================================
+// template <class T>
+// long bst<T>::in_order( void ) {
+
+
+// }
+
+// //==========================================================
+// // trim
+// // 
+// // parameters:  long low - 
+// //              long high - 
+// // pre-condition: 
+// // post-condition: 
+// //==========================================================
+// template <class T>
+// void bst<T>::trim( long low, long high ) {
 
   
-}
+// }
 
 //==========================================================
 // to_string
