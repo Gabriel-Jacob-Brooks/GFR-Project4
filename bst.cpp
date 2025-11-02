@@ -270,21 +270,25 @@ K bst<D, K>::successor( K k ) {
 // long bst<T>::in_order( void ) {
 template <class D, class K>
 string BST<D, K>::in_order() {
-    ostringstream oss;                 // Move here, not static
-    in_order_helper(root, oss);    // Pass first as reference
-    return oss.str();
+    ostringstream oss;
+    in_order_helper(root, oss);
+    string result = oss.str();
+    if (!result.empty() && result.back() == ' ') {
+        result.pop_back();  // Remove trailing space
+    }
+    return result;
 }
+
 
 template <class D, class K>
 void BST<D, K>::in_order_helper(Node* node, ostringstream& oss) {
     if (node == nullptr) return;
     
-    in_order_helper(node->left, oss);     // Pass first along
-    if (!first) oss << " ";
-    oss << node->key;
-    first = false;
-    in_order_helper(node->right, oss);    // Pass first along
+    in_order_helper(node->left, oss);
+    oss << node->key << " ";  // Always add space after key
+    in_order_helper(node->right, oss);
 }
+
 
 
 // }
@@ -337,3 +341,4 @@ string bst<T>::to_string( void ) {
 
 
 #endif
+
