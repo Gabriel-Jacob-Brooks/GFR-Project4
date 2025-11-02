@@ -203,7 +203,7 @@ D BST<D, K>::max_data( void ) {
     while (curr -> right != nullptr)
         curr = curr -> right;
 
-    return D();
+    return curr -> data;
 
     // D max = root.max_key(); // retreive key not data fix 
     // return max;
@@ -242,7 +242,7 @@ D BST<D, K>::min_data( void ) {
     while (curr->left != nullptr)
         curr = curr->left;
 
-    return D();
+    return curr -> data;
     // D min = root.min_key(); // retreives key not data fix
     // return min;
 }
