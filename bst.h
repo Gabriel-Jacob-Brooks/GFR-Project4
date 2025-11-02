@@ -98,7 +98,7 @@ void BST<D, K>::insert( const D& d, const K&  k ) {
     Node* y = nullptr;
     {
         while(x != nullptr){
-            y=x;
+            y = x;
             if (z->key < x->key){
                 x = x->left;
             }
@@ -114,9 +114,11 @@ void BST<D, K>::insert( const D& d, const K&  k ) {
         else if (z->key < y->key)
         {
             y->left = z;
+            return;
         }
         else{
             y->right = z;
+            return;
         }
 
     }
@@ -174,6 +176,7 @@ void BST<D, K>::remove( K k ) {
     return;
 
 }
+
 template <class D, class K>
 void BST<D, K>::transplant( Node *x, Node *y) {
     if (x->parent == nullptr) // end to check logic
@@ -328,7 +331,6 @@ string BST<D, K>::to_string( void ) {
     while (!q.empty()) {
         Node* current = q.front();
         q.pop();
-        if (current->left) q.push(current->left);
         if (!first) oss << " ";
         oss << current->key;
         first = false;
