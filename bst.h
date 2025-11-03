@@ -26,6 +26,7 @@ private:
     };
     
     Node* root;
+    Node* trim(Node* node, K low, K high); // Helper to Do the trim function
 public:
     BST(); //instantiate
     ~BST(); // destructor
@@ -42,7 +43,7 @@ public:
     string in_order();
     void in_order_helper(Node* node, ostringstream& oss);
     void transplant ( Node *x, Node *y);
-    void trim(long low, long high);
+    void trim(K low, K high);
     string to_string();
 
 };
@@ -275,27 +276,31 @@ K BST<D, K>::successor( K k ) {
     Node* succ = nullptr;
 
     // Step 1: find the node with key k
-    while (current) {
+    while (current != nullptr) {
         if (k < current->key) {
-            succ = current;      // potential successor
-            current = current->left;
+            succ = current;      // potential successor is stored in succ
+            current = current->left; // Continue going left until k is less than current key.
         } else if (k > current->key) {
-            current = current->right;
+            current = current->right;   //go until we find node by going right
         } else {
             // Node found
-            if (current->right) {
-                current = current->right;
-                while (current->left) current = current->left;
+            if (current->right != nullptr) {
+                current = current->right; // iterated down right children if it has any
+                while (current->left != nullptr) {
+                    current = current->left; // Once all the way down right children goes down the lefts children.
+                }
                 return current->key;
             } else {
-                // Successor is ancestor
-                return succ ? succ->key : K(); // return default if no successor
+                // Successor is 
+                if (succ != nullptr){
+                    return succ->key; // returns succesor
+                }else{
+                    return K();  // return default if no successor
+                }
             }
         }
     }
-
-    // If key not found, return default
-    return K();
+    return K();     // If key not found, return default
 }
 
 // //==========================================================
@@ -307,9 +312,13 @@ K BST<D, K>::successor( K k ) {
 // //==========================================================
 template <class D, class K>
 string BST<D, K>::in_order() {
-    ostringstream oss;                 // Move here, not static
-    in_order_helper(root, oss);    // Pass first as reference
-    return oss.str();
+    ostringstream oss;
+    in_order_helper(root, oss);
+    string result = oss.str();
+    if (!result.empty() && result.back() == ' ') {
+        result.pop_back();  // Remove trailing space
+    }
+    return result;
 }
 
 // //==========================================================
@@ -321,15 +330,11 @@ string BST<D, K>::in_order() {
 // //==========================================================
 template <class D, class K>
 void BST<D, K>::in_order_helper(Node* node, ostringstream& oss) {
-    static bool first = true;
     if (node == nullptr) return;
     
-    in_order_helper(node->left, oss);    // Left subtree
-    if (!first) oss << " ";
-    oss << node->key;                    // Current node
-    first = false;
-    in_order_helper(node->right, oss);   // Right subtree
-
+    in_order_helper(node->left, oss);
+    oss << node->key << " ";  // Always add space after key
+    in_order_helper(node->right, oss);
 
 }
 
@@ -341,8 +346,28 @@ void BST<D, K>::in_order_helper(Node* node, ostringstream& oss) {
 // // pre-condition: 
 // // post-condition: 
 // //==========================================================
-// template <class T>
-// void bst<T>::trim( long low, long high ) {
+template <typename D, typename K>
+typename BST<D, K>::Node* BST<D, K>::trim(Node* node, K low, K high) {
+    if (node == nullptr) return nullptr; // When the root is null or is at bottom of tree.
+
+    if (node->key < low)
+        return trim(node->right, low, high);  // If the node's key is smaller than low, discard left subtree
+
+    
+    if (node->key > high)
+        return trim(node->left, low, high); // If the node's key is larger than high, discard right subtree
+
+    // Node is within range — recursively trim both sides
+    node->left = trim(node->left, low, high);
+    node->right = trim(node->right, low, high);
+
+    return node;
+}
+
+template <typename D, typename K>
+void BST<D, K>::trim(K low, K high) {
+    root = trim(root, low, high);
+}
 
   
 // }
