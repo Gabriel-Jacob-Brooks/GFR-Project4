@@ -39,7 +39,7 @@ public:
     D min_data();
     K min_key();
     K successor(K k);
-    K in_order();
+    string in_order();
     void in_order_helper(Node* node, ostringstream& oss);
     void transplant ( Node *x, Node *y);
     void trim(long low, long high);
@@ -98,7 +98,7 @@ void BST<D, K>::insert( const D& d, const K&  k ) {
     Node* y = nullptr;
     {
         while(x != nullptr){
-            y=x;
+            y = x;
             if (z->key < x->key){
                 x = x->left;
             }
@@ -114,9 +114,11 @@ void BST<D, K>::insert( const D& d, const K&  k ) {
         else if (z->key < y->key)
         {
             y->left = z;
+            return;
         }
         else{
             y->right = z;
+            return;
         }
 
     }
@@ -184,6 +186,7 @@ void BST<D, K>::remove( K k ) {
     return;
 
 }
+
 template <class D, class K>
 void BST<D, K>::transplant( Node *x, Node *y) {
     if (x->parent == nullptr) // make sure to delete memory before overriding it 
@@ -210,7 +213,7 @@ D BST<D, K>::max_data( void ) {
     while (curr -> right != nullptr)
         curr = curr -> right;
 
-    return D();
+    return curr -> data;
 
     // D max = root.max_key(); // retreive key not data fix 
     // return max;
@@ -249,7 +252,7 @@ D BST<D, K>::min_data( void ) {
     while (curr->left != nullptr)
         curr = curr->left;
 
-    return D();
+    return curr -> data;
     // D min = root.min_key(); // retreives key not data fix
     // return min;
 }
@@ -312,11 +315,33 @@ K BST<D, K>::successor( K k ) {
 // // pre-condition: 
 // // post-condition: 
 // //==========================================================
-// template <class T>
-// long bst<T>::in_order( void ) {
+template <class D, class K>
+string BST<D, K>::in_order() {
+    ostringstream oss;                 // Move here, not static
+    in_order_helper(root, oss);    // Pass first as reference
+    return oss.str();
+}
+
+// //==========================================================
+// // in_order_helper
+// // 
+// // parameters: none
+// // pre-condition: 
+// // post-condition: 
+// //==========================================================
+template <class D, class K>
+void BST<D, K>::in_order_helper(Node* node, ostringstream& oss) {
+    static bool first = true;
+    if (node == nullptr) return;
+    
+    in_order_helper(node->left, oss);    // Left subtree
+    if (!first) oss << " ";
+    oss << node->key;                    // Current node
+    first = false;
+    in_order_helper(node->right, oss);   // Right subtree
 
 
-// }
+}
 
 // //==========================================================
 // // trim
@@ -351,7 +376,6 @@ string BST<D, K>::to_string( void ) {
     while (!q.empty()) {
         Node* current = q.front();
         q.pop();
-        if (current->left) q.push(current->left);
         if (!first) oss << " ";
         oss << current->key;
         first = false;
