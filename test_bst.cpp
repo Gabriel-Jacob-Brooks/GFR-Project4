@@ -1,7 +1,7 @@
 //Our Testing of BST
 
 #include "iostream"
-#include "bst.h"
+#include "usecase.cpp"
 #include "string"
 #include "sstream"
 using namespace std;

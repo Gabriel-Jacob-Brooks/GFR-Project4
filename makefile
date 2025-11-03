@@ -1,18 +1,30 @@
-all: main
+all: test-example test main
 
-main: test_bst.o usecase.o 
-	g++ -std=c++11 test_bst.o -o test
+# Example test executable - must compile bst.cpp directly in the command
+test-example: test_bst_example.cpp usecase.cpp bst.h bst.cpp binhex.txt
+	g++ -std=c++11 test_bst_example.cpp bst.cpp -o test-example
 
-main.o:  main.cpp bst.h
-	g++ -std=c++11 -c main.cpp
+# Real test executable
+test: test_bst.cpp usecase.cpp bst.h bst.cpp binhex.txt
+	g++ -std=c++11 test_bst.cpp bst.cpp -o test
 
+# Main executable
+main: main.cpp bst.h bst.cpp
+	g++ -std=c++11 main.cpp bst.cpp -o main
 
-usecase.o: usecase.cpp bst.h
-	g++ -std=c++11 -c usecase.cpp
+# Usecase executable (if needed separately)
+usecase: usecase.cpp bst.h bst.cpp
+	g++ -std=c++11 usecase.cpp bst.cpp -o usecase
 
+# Run tests
+run-example: test-example
+	./test-example
 
-test_bst.o: test_bst.cpp bst.h
-	g++ -std=c++11 -c test_bst.cpp
+run-test: test
+	./test
+
+run-main: main
+	./main
 
 clean:
-	rm -f *.o test
+	rm -f *.o test test-example main usecase
