@@ -158,25 +158,35 @@ void BST<D, K>::remove( K k ) {
     
     Node* curr = root;
 
-    while (curr != nullptr) { // finding key in tree
-        if (k == curr->key)
-            delete curr->key;
-        else if (k < curr->key)
+    while (curr->key != k) { // finding key in tree
+        if (k < curr->key)
             curr = curr -> left;
-        else
+        else if (k > curr ->key)
             curr = curr -> right;
+    }
+        // using transplant to maintain property
+    if (curr -> left == nullptr)
+        transplant(curr, curr -> right);
+    else if (curr -> right == nullptr)
+        transplant(curr, curr -> left);
+    else  {
+        Node* succ = nullptr;
+        
+        succ = successor(curr->right);           
+        if (succ != curr -> right) {
+            transplant(succ, succ->right);
+            succ->right = curr->right;
         }
-        // delete key in tree
-        if (curr -> left == nullptr)
-            transplant(curr, curr -> right);
-        else if (curr -> right == nullptr)
-            transplant(curr, curr -> left);
+        transplant(curr, succ);
+        succ->left = curr -> left;
+        succ -> left -> parent = succ;
+    }
     return;
 
 }
 template <class D, class K>
 void BST<D, K>::transplant( Node *x, Node *y) {
-    if (x->parent == nullptr) // end to check logic
+    if (x->parent == nullptr) // make sure to delete memory before overriding it 
         root = y;
     else if (x == x->parent->left)
         x->parent->left = y;
