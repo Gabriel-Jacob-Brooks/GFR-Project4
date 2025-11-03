@@ -163,7 +163,7 @@ void BST<D, K>::remove( K k ) {
     while (curr->key != k) { // finding key in tree
         if (k < curr->key)
             curr = curr -> left;
-        else if (k > curr ->key)
+        else 
             curr = curr -> right;
     }
         // using transplant to maintain property
@@ -172,9 +172,11 @@ void BST<D, K>::remove( K k ) {
     else if (curr -> right == nullptr)
         transplant(curr, curr -> left);
     else  {
-        Node* succ = nullptr;
-        
-        succ = successor(curr->right);           
+        Node* succ = curr->right;
+        while (succ->left != nullptr)
+            succ = succ->left;
+
+                 
         if (succ != curr -> right) {
             transplant(succ, succ->right);
             succ->right = curr->right;

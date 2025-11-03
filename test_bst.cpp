@@ -123,28 +123,28 @@ void test_successor()
     }
 }
 
-// void test_remove()
-// {
-//     try
-//     {
-//         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
-//         BST<string, int> balanced_bst;
-//         for (int i = 0; i < 10; i++)
-//         {
-//             balanced_bst.insert("some data", vals[i]);
-//         }
-//         balanced_bst.remove(7);
-//         string bst_str = balanced_bst.to_string();
-//         if (bst_str != "5 2 8 1 3 6 9 4 10")
-//         {
-//             cout << "Incorrect result of removing 7. Expected 5 2 8 1 3 6 9 4 10 but got : " << bst_str << endl;
-//         }
-//     }
-//     catch (exception &e)
-//     {
-//         cerr << "Error in removing node from bst : " << e.what() << endl;
-//     }
-// }
+void test_remove()
+{
+    try
+    {
+        int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
+        BST<string, int> balanced_bst;
+        for (int i = 0; i < 10; i++)
+        {
+            balanced_bst.insert("some data", vals[i]);
+        }
+        balanced_bst.remove(7);
+        string bst_str = balanced_bst.to_string();
+        if (bst_str != "5 2 8 1 3 6 9 4 10")
+        {
+            cout << "Incorrect result of removing 7. Expected 5 2 8 1 3 6 9 4 10 but got : " << bst_str << endl;
+        }
+    }
+    catch (exception &e)
+    {
+        cerr << "Error in removing node from bst : " << e.what() << endl;
+    }
+}
 
 
 void test_max_data()
@@ -275,7 +275,7 @@ int main()
     test_empty();
     printf("empty sucess \n");
     test_insert();
-    // test_remove();
+    test_remove();
     test_successor();
     test_max_data(); 
     test_max_key();
