@@ -166,39 +166,47 @@ void BST<D, K>::remove( K k ) {
         else 
             curr = curr -> right;
     }
-        // using transplant to maintain property
-    if (curr -> left == nullptr)
+    if (curr == nullptr) // if not found return early
+        return; 
+       
+    if (curr -> left == nullptr) { // no left node
         transplant(curr, curr -> right);
-    else if (curr -> right == nullptr)
+        delete curr;
+    }
+    else if (curr -> right == nullptr) { // no right node
         transplant(curr, curr -> left);
-    else  {
+        delete curr;
+    }
+    else  { // has both left and right nodes
         Node* succ = curr->right;
-        while (succ->left != nullptr)
+        while (succ->left != nullptr)  // find successor
             succ = succ->left;
-
                  
-        if (succ != curr -> right) {
+        if (succ != curr -> right) { // replace by the right child
             transplant(succ, succ->right);
-            succ->right = curr->right;
+            succ->right = curr->right; // curr's right child becomes succ's
+            succ->right->parent = succ;
         }
-        transplant(curr, succ);
-        succ->left = curr -> left;
+        transplant(curr, succ); // replace curr by successor
+        succ->left = curr -> left; // curr's left child becomes succ's
         succ -> left -> parent = succ;
     }
+    delete curr;
     return;
 
 }
 
 template <class D, class K>
 void BST<D, K>::transplant( Node *x, Node *y) {
-    if (x->parent == nullptr) // make sure to delete memory before overriding it 
+    if (x->parent == nullptr) // x is root
         root = y;
-    else if (x == x->parent->left)
+    else if (x == x->parent->left) // x is left child
         x->parent->left = y;
-    else (x->parent->right = y);
-    if ( y == nullptr )
-        y->parent = x->parent;
+    else // x is right child
+        x->parent->right = y;
 
+    if (y != nullptr) // fixing parent pointer
+        y->parent = x->parent;
 }
 //==========================================================
 // max_data
