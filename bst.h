@@ -161,33 +161,53 @@ void BST<D, K>::remove( K k ) {
     
     Node* curr = root;
 
-    while (curr != nullptr) { // finding key in tree
-        if (k == curr->key)
-            delete curr->key;
-        else if (k < curr->key)
+    while (curr->key != k) { // finding key in tree
+        if (k < curr->key)
             curr = curr -> left;
-        else
+        else 
             curr = curr -> right;
+    }
+    if (curr == nullptr) // if not found return early
+        return; 
+       
+    if (curr -> left == nullptr) { // no left node
+        transplant(curr, curr -> right);
+        delete curr;
+    }
+    else if (curr -> right == nullptr) { // no right node
+        transplant(curr, curr -> left);
+        delete curr;
+    }
+    else  { // has both left and right nodes
+        Node* succ = curr->right;
+        while (succ->left != nullptr)  // find successor
+            succ = succ->left;
+                 
+        if (succ != curr -> right) { // replace by the right child
+            transplant(succ, succ->right);
+            succ->right = curr->right; // curr's right child becomes succ's
+            succ->right->parent = succ;
         }
-        // delete key in tree
-        if (curr -> left == nullptr)
-            transplant(curr, curr -> right);
-        else if (curr -> right == nullptr)
-            transplant(curr, curr -> left);
+        transplant(curr, succ); // replace curr by successor
+        succ->left = curr -> left; // curr's left child becomes succ's
+        succ -> left -> parent = succ;
+    }
+    delete curr;
     return;
 
 }
 
 template <class D, class K>
 void BST<D, K>::transplant( Node *x, Node *y) {
-    if (x->parent == nullptr) // end to check logic
+    if (x->parent == nullptr) // x is root
         root = y;
-    else if (x == x->parent->left)
+    else if (x == x->parent->left) // x is left child
         x->parent->left = y;
-    else (x->parent->right = y);
-    if ( y == nullptr )
-        y->parent = x->parent;
+    else // x is right child
+        x->parent->right = y;
 
+    if (y != nullptr) // fixing parent pointer
+        y->parent = x->parent;
 }
 //==========================================================
 // max_data

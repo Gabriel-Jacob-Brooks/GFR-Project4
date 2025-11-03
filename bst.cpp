@@ -227,7 +227,7 @@ void bst<T>::transplant( Node *x, Node *y) {
     else (x->parent->right = y);
     if ( y == nullptr )
         y->parent = x->parent;
-
+    return;
 }
 //==========================================================
 // trim
