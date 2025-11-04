@@ -21,6 +21,8 @@ BST<D,K>* create_bst(string filename) {
 
 template<class D, class K>
 D convert(BST<D,K>* bst, string binary) {
+template<class D, class K>
+D convert(BST<D,K>* bst, string binary) {
     string result = "";
     
     // Pad the binary string to make it a multiple of 4 from the LEFT
