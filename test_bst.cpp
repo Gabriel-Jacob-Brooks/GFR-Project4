@@ -58,7 +58,7 @@ void test_insert()
             cout << "Incorrect result of inserting keys 1-10 in order. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
         }
         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
-        //Testing insert on a balence tree
+        //Testing insert on a balance tree
         BST<string, int> balanced_bst;
         for (int i = 0; i < 10; i++)
         {
@@ -181,7 +181,7 @@ void test_remove()
 {
     try
     {
-        //Test to see removing from a balenced tree
+        //Test to see removing from a balanced tree
         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
         BST<string, int> balanced_bst;
         for (int i = 0; i < 10; i++)

@@ -194,8 +194,8 @@ void BST<D, K>::transplant(Node *x, Node *y) {
 // max_data
 // max data retrieved from associated maximum key k
 // parameters: none
-// pre-condition: 
-// post-condition: 
+// pre-condition: valid existing bst
+// post-condition: returns max data d from associated max key k
 //==========================================================
 template <class D, class K>
 D BST<D, K>::max_data( void ) {  // Change return type from K to D
@@ -209,8 +209,8 @@ D BST<D, K>::max_data( void ) {  // Change return type from K to D
 // max_key
 // returns associated maximum key k
 // parameters: none
-// pre-condition: 
-// post-condition: 
+// pre-condition: valid existing bst
+// post-condition: returns max key k
 //==========================================================
 template <class D, class K>
 K BST<D, K>::max_key( void ) {  // Change return type from D to K
@@ -225,8 +225,8 @@ K BST<D, K>::max_key( void ) {  // Change return type from D to K
 // min_data
 // returns associated minimum data d when retrieving the minimum key k
 // parameters: none
-// pre-condition: 
-// post-condition: 
+// pre-condition: valid existing bst
+// post-condition: returns min data d from associated min key k
 //==========================================================
 template <class D, class K>
 D BST<D, K>::min_data( void ) {  // Change return type from K to D
@@ -241,8 +241,8 @@ D BST<D, K>::min_data( void ) {  // Change return type from K to D
 // min_key
 // returns minimum key k 
 // parameters: none
-// pre-condition: 
-// post-condition: 
+// pre-condition: valid existing bst
+// post-condition: returns min key k
 //==========================================================
 template <class D, class K>
 K BST<D, K>::min_key( void ) {
@@ -255,10 +255,11 @@ K BST<D, K>::min_key( void ) {
 }
 // ==========================================================
 // successor
-
+// returns successor's key by finding smallest key k that is larger 
+// than k
 // parameters: K k - numeric key value
-// pre-condition: 
-// post-condition: 
+// pre-condition: valid existing bst
+// post-condition: returns successor to k if it exists within bst
 // ==========================================================
 template <class D, class K>
 K BST<D, K>::successor( K k ) {
@@ -291,10 +292,10 @@ K BST<D, K>::successor( K k ) {
 
 //==========================================================
 // in_order
-// 
+// returns string of bst with keys in ascending order
 // parameters: none
-// pre-condition: 
-// post-condition: 
+// pre-condition: valid existing bst
+// post-condition: returns string of keys in ascending order
 //==========================================================
 template <class D, class K>
 string BST<D, K>::in_order() {
@@ -364,7 +365,8 @@ typename BST<D, K>::Node* BST<D, K>::trim_helper(Node* node, K low, K high) {
 
 //==========================================================
 // to_string
-// 
+// converts bst to string that starts from root to bottom from 
+// left to right 
 // parameters: none
 // pre-condition: valid existing bst
 // post-condition: string of bst 
@@ -393,6 +395,4 @@ string BST<D, K>::to_string( void ) {
 
 }
 
-// template class BST<string, int>;
-// template class BST<string, string>;
 #endif
