@@ -5,22 +5,22 @@
 #include <fstream>
 using namespace std;
 
-template<class T, class K>
-BST<T,K>* create_bst(string filename) {
-    BST<T,K>* bst = new BST<T,K>();
+template<class D, class K>
+BST<D,K>* create_bst(string filename) {
+    BST<D,K>* bst = new BST<D,K>();
     ifstream file(filename);
     string line;
     while (getline(file, line)) {
         size_t comma = line.find(',');
-        T hex = line.substr(0, comma);
+        D hex = line.substr(0, comma);
         K binary = line.substr(comma + 1);
         bst->insert(hex, binary);
     }
     return bst;
 }
 
-template<class T, class K>
-T convert(BST<T,K>* bst, string binary) {
+template<class D, class K>
+D convert(BST<D,K>* bst, string binary) {
     string result = "";
     
     // Pad the binary string to make it a multiple of 4 from the LEFT
