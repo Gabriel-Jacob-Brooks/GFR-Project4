@@ -12,12 +12,13 @@ BST<D,K>* create_bst(string filename) {
     string line;
     while (getline(file, line)) {
         size_t comma = line.find(',');
-        T hex = line.substr(0, comma); //Does first part of line till comma and puts it into hex
+        D hex = line.substr(0, comma); //Does first part of line till comma and puts it into hex
         K binary = line.substr(comma + 1); //Does after the comma and puts it into binary
         bst->insert(hex, binary); // Hex is the data, binary is the key.
     }
     return bst;
 }
+
 
 template<class D, class K>
 D convert(BST<D,K>* bst, string binary) {
