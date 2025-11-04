@@ -54,8 +54,8 @@ bool BST<D, K>::empty() {
 // inserts key k into a valid bst
 // parameters: T& d - element's template data
 //             const long& k - numeric key value
-// pre-condition: 
-// post-condition: 
+// pre-condition: a valid created bst
+// post-condition: bst with added node with data d and key k
 //==========================================================
 template <class D, class K>
 void BST<D, K>::insert( const D& d, const K&  k ) {
@@ -92,8 +92,8 @@ void BST<D, K>::insert( const D& d, const K&  k ) {
 // get
 // returns key from node with the correct associated data
 // parameters: const long& k - numeric key value
-// pre-condition: 
-// post-condition: 
+// pre-condition: an exisitng bst
+// post-condition: returned key k and data d from node if it exists
 //==========================================================
 template <class D, class K>
 D BST<D, K>::get( const K&  k ) {
@@ -116,8 +116,9 @@ D BST<D, K>::get( const K&  k ) {
 // remove 
 // deletes the first node it finds with key k (closest to root)
 // parameters: long k - numeric key value
-// pre-condition: 
-// post-condition: 
+// pre-condition: non-empty bst that maintains bst property
+// post-condition: bst's size reduced by one with first node of key k
+//                 removed
 //==========================================================
 template <class D, class K>
 void BST<D, K>::remove(K k) {
@@ -165,28 +166,33 @@ void BST<D, K>::remove(K k) {
     delete curr;
 }
 
-
+//==========================================================
+// transplant 
+// replaces one subtree as a child of it parent with another subtree
+// parameters: Node *x - pointer to node of subtree to be replaced 
+//             Node *y - pointer to node of subtree replacing subtree rooted at x
+// pre-condition: 
+// post-condition: 
+//==========================================================
 template <class D, class K>
 void BST<D, K>::transplant(Node *x, Node *y) {
-    if (x->parent == nullptr) {
+    if (x->parent == nullptr) 
         root = y;
-    }
+
     else if (x == x->parent->left) {
         x->parent->left = y;
     }
-    else {
+    else
         x->parent->right = y;
-    }
     
-    if (y != nullptr) {
+    if (y != nullptr)
         y->parent = x->parent;
-    }
 }
 
 
 //==========================================================
 // max_data
-// 
+// max data retrieved from associated maximum key k
 // parameters: none
 // pre-condition: 
 // post-condition: 
@@ -199,11 +205,9 @@ D BST<D, K>::max_data( void ) {  // Change return type from K to D
     return curr->data;  // Return data, not key
 }
 
-
-
 //==========================================================
 // max_key
-// 
+// returns associated maximum key k
 // parameters: none
 // pre-condition: 
 // post-condition: 
@@ -219,7 +223,7 @@ K BST<D, K>::max_key( void ) {  // Change return type from D to K
 
 //==========================================================
 // min_data
-// 
+// returns associated minimum data d when retrieving the minimum key k
 // parameters: none
 // pre-condition: 
 // post-condition: 
@@ -235,7 +239,7 @@ D BST<D, K>::min_data( void ) {  // Change return type from K to D
 
 //==========================================================
 // min_key
-// 
+// returns minimum key k 
 // parameters: none
 // pre-condition: 
 // post-condition: 
@@ -252,7 +256,7 @@ K BST<D, K>::min_key( void ) {
 // ==========================================================
 // successor
 
-// parameters: V k - numeric key value
+// parameters: K k - numeric key value
 // pre-condition: 
 // post-condition: 
 // ==========================================================
@@ -285,16 +289,13 @@ K BST<D, K>::successor( K k ) {
     return K();
 }
 
-// //==========================================================
-// // in_order
-// // 
-// // parameters: none
-// // pre-condition: 
-// // post-condition: 
-// //==========================================================
-// template <class T>
-// long bst<T>::in_order( void ) {
-
+//==========================================================
+// in_order
+// 
+// parameters: none
+// pre-condition: 
+// post-condition: 
+//==========================================================
 template <class D, class K>
 string BST<D, K>::in_order() {
     ostringstream oss;
@@ -317,18 +318,16 @@ void BST<D, K>::in_order_helper(Node* node, ostringstream& oss) {
 }
 
 
-// }
 
-// //==========================================================
-// // trim
-// // 
-// // parameters:  long low - 
-// //              long high - 
-// // pre-condition: 
-// // post-condition: 
-// //==========================================================
-// template <class T>
-// void bst<T>::trim( long low, long high ) {
+//==========================================================
+// trim
+// modifies bst so all remaining keys are within the interval
+// [low, high] and retains bst's structure
+// parameters:  K low - numeric lower bound for modified bst
+//              K high - numeric upper bound for modified bst
+// pre-condition: valid existing bst
+// post-condition: modified bst with keys in the range of [low, high]
+//==========================================================
 template <class D, class K>
 void BST<D, K>::trim(K low, K high) {
     root = trim_helper(root, low, high);
@@ -363,16 +362,12 @@ typename BST<D, K>::Node* BST<D, K>::trim_helper(Node* node, K low, K high) {
     return node;
 }
 
-
-  
-// }
-
 //==========================================================
 // to_string
 // 
 // parameters: none
-// pre-condition: 
-// post-condition: 
+// pre-condition: valid existing bst
+// post-condition: string of bst 
 //==========================================================
 template <class D, class K>
 string BST<D, K>::to_string( void ) {
