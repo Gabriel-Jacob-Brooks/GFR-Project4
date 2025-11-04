@@ -12,12 +12,20 @@ void test_empty()
     try
     {
         BST<string, int> bst;
+        //When creating a BST it should be empty.
         if (!bst.empty())
         {
             cout << "Incorrect empty result." << endl;
         }
+        //Insert something int BST should make empty() false
         bst.insert("one", 1);
         if (bst.empty())
+        {
+            cout << "Incorrect empty result." << endl;
+        }
+        //Test if it still will read empty if we remove something
+        bst.remove(1);
+        if (!bst.empty())
         {
             cout << "Incorrect empty result." << endl;
         }
@@ -32,6 +40,7 @@ void test_insert()
 {
     try
     {
+        // Testing Insert on an Unbalenced tree
         BST<string, int> bst;
         bst.insert("one", 1);
         string bst_str = bst.to_string();
@@ -49,6 +58,7 @@ void test_insert()
             cout << "Incorrect result of inserting keys 1-10 in order. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
         }
         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
+        //Testing insert on a balence tree
         BST<string, int> balanced_bst;
         for (int i = 0; i < 10; i++)
         {
@@ -77,13 +87,57 @@ void test_get()
         {
             cout << "Incorrect get result from empty bst. Expected 0 but got " << val << endl;
         }
-
+        // Getting/Ablitiy to insert Strings
         bst.insert("one", 1);
         val = bst.get(1);
         if (val != "one")
         {
             cout << "Incorrect get result. Expected \"one\" but got : " << val << endl;
         }
+        // Getting/Ablitiy to insert Ints with int key
+        BST<int, int> bst_int;
+        bst_int.insert(65, 1);
+        int valint = bst_int.get(1);
+        if (valint != 65)
+        {
+            cout << "Incorrect get result. Expected 65 but got : " << valint << endl;
+        }
+        // Getting/Ablitiy to insert long
+        BST<long, long> bst_long;
+        bst_int.insert(70.0, 2.0);
+        long vallong = bst_int.get(2.0);
+        if (vallong != 70.0)
+        {
+            cout << "Incorrect get result. Expected 70.0 but got : " << vallong << endl;
+        }
+        // Getting/Ablitiy to insert char with char key
+        BST<char, char> bst_char;
+        bst_char.insert('d', 'a');
+        long valchar = bst_char.get('a');
+        if (valchar != 'd')
+        {
+            cout << "Incorrect get result. Expected 'd' but got : " << valchar << endl;
+        }
+        // Getting/Ablitiy to insert float with float key
+        BST<float, float> bst_float;
+        bst_float.insert(4.0f, 1.0f);
+        float valfloat = bst_float.get(1.0f);
+        if (valfloat != 4.0f)
+        {
+            cout << "Incorrect get result. Expected 'd' but got : " << valfloat << endl;
+        }
+        // Getting/Ablitiy to insert bool with int key
+        BST<bool, int> bst_bool;
+        bst_bool.insert(true, 1);
+        long valbool = bst_bool.get(1);
+        if (valbool != true)
+        {
+            cout << "Incorrect get result. Expected 'd' but got : " << valbool << endl;
+        }
+
+
+
+
     }
     catch (exception &e)
     {
@@ -127,6 +181,7 @@ void test_remove()
 {
     try
     {
+        //Test to see removing from a balenced tree
         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
         BST<string, int> balanced_bst;
         for (int i = 0; i < 10; i++)
@@ -139,6 +194,10 @@ void test_remove()
         {
             cout << "Incorrect result of removing 7. Expected 5 2 8 1 3 6 9 4 10 but got : " << bst_str << endl;
         }
+        //Test to see if we can remove from an empty BST
+        BST<string, int> empty_bst;
+        empty_bst.remove(1);
+
     }
     catch (exception &e)
     {
@@ -304,7 +363,9 @@ void test_in_order()
 
 int main()
 {
-
+    cout << endl
+         << "Running tests for our test file" << endl
+         << endl;
 
     test_empty();
     test_insert();
@@ -318,5 +379,5 @@ int main()
     test_in_order();
     test_trim();
 
-
+    cout << "Testing completed" << endl;
 }
