@@ -54,7 +54,7 @@ bool BST<D, K>::empty() {
 // inserts key k into a valid bst
 // parameters: T& d - element's template data
 //             const long& k - numeric key value
-// pre-condition: a valid created bst
+// pre-condition: an existing bst with unique keys
 // post-condition: bst with added node with data d and key k
 //==========================================================
 template <class D, class K>
@@ -92,7 +92,7 @@ void BST<D, K>::insert( const D& d, const K&  k ) {
 // get
 // returns key from node with the correct associated data
 // parameters: const long& k - numeric key value
-// pre-condition: an exisitng bst
+// pre-condition: an existing bst with unique keys
 // post-condition: returned key k and data d from node if it exists
 //==========================================================
 template <class D, class K>
@@ -171,21 +171,21 @@ void BST<D, K>::remove(K k) {
 // replaces one subtree as a child of it parent with another subtree
 // parameters: Node *x - pointer to node of subtree to be replaced 
 //             Node *y - pointer to node of subtree replacing subtree rooted at x
-// pre-condition: 
-// post-condition: 
+// pre-condition: existing bst with unique keys
+// post-condition: modified bst with rooted subtree replaced
 //==========================================================
 template <class D, class K>
 void BST<D, K>::transplant(Node *x, Node *y) {
-    if (x->parent == nullptr) 
-        root = y;
+    if (x->parent == nullptr) // if x is the root
+        root = y; // root is started at the subtree y
 
-    else if (x == x->parent->left) {
+    else if (x == x->parent->left) { // if left child of parent
         x->parent->left = y;
     }
-    else
+    else // if right child of parent
         x->parent->right = y;
     
-    if (y != nullptr)
+    if (y != nullptr) // only updates if is not nullptr 
         y->parent = x->parent;
 }
 
@@ -194,7 +194,7 @@ void BST<D, K>::transplant(Node *x, Node *y) {
 // max_data
 // max data retrieved from associated maximum key k
 // parameters: none
-// pre-condition: valid existing bst
+// pre-condition: existing bst with unique keys
 // post-condition: returns max data d from associated max key k
 //==========================================================
 template <class D, class K>
@@ -209,13 +209,13 @@ D BST<D, K>::max_data( void ) {  // Change return type from K to D
 // max_key
 // returns associated maximum key k
 // parameters: none
-// pre-condition: valid existing bst
+// pre-condition: existing bst with unique keys
 // post-condition: returns max key k
 //==========================================================
 template <class D, class K>
 K BST<D, K>::max_key( void ) {  // Change return type from D to K
     Node* curr = root;
-    while (curr->right != nullptr)
+    while (curr->right != nullptr) // max key is most right node
         curr = curr->right;
     return curr->key;
 }
@@ -225,13 +225,13 @@ K BST<D, K>::max_key( void ) {  // Change return type from D to K
 // min_data
 // returns associated minimum data d when retrieving the minimum key k
 // parameters: none
-// pre-condition: valid existing bst
+// pre-condition: existing bst with unique keys
 // post-condition: returns min data d from associated min key k
 //==========================================================
 template <class D, class K>
 D BST<D, K>::min_data( void ) {  // Change return type from K to D
     Node* curr = root;
-    while (curr->left != nullptr)
+    while (curr->left != nullptr) // finds min key k 
         curr = curr->left;
     return curr->data;  // Return data, not key
 }
@@ -241,14 +241,13 @@ D BST<D, K>::min_data( void ) {  // Change return type from K to D
 // min_key
 // returns minimum key k 
 // parameters: none
-// pre-condition: valid existing bst
+// pre-condition: existing bst with unique keys
 // post-condition: returns min key k
 //==========================================================
 template <class D, class K>
 K BST<D, K>::min_key( void ) {
     Node* curr = root;
-
-    while (curr->left != nullptr)
+    while (curr->left != nullptr) // min key is most left node
         curr = curr->left;
 
     return curr->key;
@@ -258,7 +257,7 @@ K BST<D, K>::min_key( void ) {
 // returns successor's key by finding smallest key k that is larger 
 // than k
 // parameters: K k - numeric key value
-// pre-condition: valid existing bst
+// pre-condition: existing bst with unique keys
 // post-condition: returns successor to k if it exists within bst
 // ==========================================================
 template <class D, class K>
@@ -294,7 +293,7 @@ K BST<D, K>::successor( K k ) {
 // in_order
 // returns string of bst with keys in ascending order
 // parameters: none
-// pre-condition: valid existing bst
+// pre-condition: existing bst with unique keys
 // post-condition: returns string of keys in ascending order
 //==========================================================
 template <class D, class K>
@@ -326,7 +325,7 @@ void BST<D, K>::in_order_helper(Node* node, ostringstream& oss) {
 // [low, high] and retains bst's structure
 // parameters:  K low - numeric lower bound for modified bst
 //              K high - numeric upper bound for modified bst
-// pre-condition: valid existing bst
+// pre-condition: existing bst with unique keys
 // post-condition: modified bst with keys in the range of [low, high]
 //==========================================================
 template <class D, class K>
@@ -368,7 +367,7 @@ typename BST<D, K>::Node* BST<D, K>::trim_helper(Node* node, K low, K high) {
 // converts bst to string that starts from root to bottom from 
 // left to right 
 // parameters: none
-// pre-condition: valid existing bst
+// pre-condition: existing bst with unique keys
 // post-condition: string of bst 
 //==========================================================
 template <class D, class K>
