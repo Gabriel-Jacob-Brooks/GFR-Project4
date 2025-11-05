@@ -688,57 +688,42 @@ void test_in_order_boundary()
     }
 }
 
-// Comprehensive test cases for usecase functions
 void test_usecase_normal()
 {
     try
     {
-        // Normal Case 1: Create a simple binary-to-hex mapping BST and convert
-        BST<string, string> hex_bst;
-        hex_bst.insert("0", "0000");
-        hex_bst.insert("1", "0001");
-        hex_bst.insert("2", "0010");
-        hex_bst.insert("3", "0011");
-        hex_bst.insert("4", "0100");
-        hex_bst.insert("5", "0101");
-        hex_bst.insert("6", "0110");
-        hex_bst.insert("7", "0111");
-        hex_bst.insert("8", "1000");
-        hex_bst.insert("9", "1001");
-        hex_bst.insert("A", "1010");
-        hex_bst.insert("B", "1011");
-        hex_bst.insert("C", "1100");
-        hex_bst.insert("D", "1101");
-        hex_bst.insert("E", "1110");
-        hex_bst.insert("F", "1111");
+        // Create BST from binhex.txt file
+        BST<string, string>* hex_bst = create_bst<string, string>("binhex.txt");
 
         // Test convert function - Normal Case 1: Simple 4-bit conversion
-        string result = convert(&hex_bst, "1111");
+        string result = convert(hex_bst, "1111");
         if (result != "F")
         {
             cout << "USECASE NORMAL CASE 1 FAILED: Expected 'F' but got: " << result << endl;
         }
 
         // Normal Case 2: 8-bit conversion
-        result = convert(&hex_bst, "11111111");
+        result = convert(hex_bst, "11111111");
         if (result != "FF")
         {
             cout << "USECASE NORMAL CASE 2 FAILED: Expected 'FF' but got: " << result << endl;
         }
 
         // Normal Case 3: Mixed binary pattern
-        result = convert(&hex_bst, "10100101");
+        result = convert(hex_bst, "10100101");
         if (result != "A5")
         {
             cout << "USECASE NORMAL CASE 3 FAILED: Expected 'A5' but got: " << result << endl;
         }
 
         // Normal Case 4: All zeros
-        result = convert(&hex_bst, "00000000");
+        result = convert(hex_bst, "00000000");
         if (result != "00")
         {
             cout << "USECASE NORMAL CASE 4 FAILED: Expected '00' but got: " << result << endl;
         }
+
+        delete hex_bst;  // Clean up dynamically allocated BST
     }
     catch (exception &e)
     {
@@ -750,52 +735,38 @@ void test_usecase_edge()
 {
     try
     {
-        // Create hex BST for edge cases
-        BST<string, string> hex_bst;
-        hex_bst.insert("0", "0000");
-        hex_bst.insert("1", "0001");
-        hex_bst.insert("2", "0010");
-        hex_bst.insert("3", "0011");
-        hex_bst.insert("4", "0100");
-        hex_bst.insert("5", "0101");
-        hex_bst.insert("6", "0110");
-        hex_bst.insert("7", "0111");
-        hex_bst.insert("8", "1000");
-        hex_bst.insert("9", "1001");
-        hex_bst.insert("A", "1010");
-        hex_bst.insert("B", "1011");
-        hex_bst.insert("C", "1100");
-        hex_bst.insert("D", "1101");
-        hex_bst.insert("E", "1110");
-        hex_bst.insert("F", "1111");
+        // Create BST from binhex.txt file
+        BST<string, string>* hex_bst = create_bst<string, string>("binhex.txt");
 
         // Edge Case 1: Single bit (requires padding)
-        string result = convert(&hex_bst, "1");
+        string result = convert(hex_bst, "1");
         if (result != "1")
         {
             cout << "USECASE EDGE CASE 1 FAILED: Expected '1' but got: " << result << endl;
         }
 
         // Edge Case 2: Two bits (requires padding)
-        result = convert(&hex_bst, "10");
+        result = convert(hex_bst, "10");
         if (result != "2")
         {
             cout << "USECASE EDGE CASE 2 FAILED: Expected '2' but got: " << result << endl;
         }
 
         // Edge Case 3: Three bits (requires padding)
-        result = convert(&hex_bst, "111");
+        result = convert(hex_bst, "111");
         if (result != "7")
         {
             cout << "USECASE EDGE CASE 3 FAILED: Expected '7' but got: " << result << endl;
         }
 
         // Edge Case 4: Exactly 4 bits (no padding needed)
-        result = convert(&hex_bst, "1010");
+        result = convert(hex_bst, "1010");
         if (result != "A")
         {
             cout << "USECASE EDGE CASE 4 FAILED: Expected 'A' but got: " << result << endl;
         }
+
+        delete hex_bst;  // Clean up
     }
     catch (exception &e)
     {
@@ -807,59 +778,45 @@ void test_usecase_boundary()
 {
     try
     {
-        // Create hex BST for boundary cases
-        BST<string, string> hex_bst;
-        hex_bst.insert("0", "0000");
-        hex_bst.insert("1", "0001");
-        hex_bst.insert("2", "0010");
-        hex_bst.insert("3", "0011");
-        hex_bst.insert("4", "0100");
-        hex_bst.insert("5", "0101");
-        hex_bst.insert("6", "0110");
-        hex_bst.insert("7", "0111");
-        hex_bst.insert("8", "1000");
-        hex_bst.insert("9", "1001");
-        hex_bst.insert("A", "1010");
-        hex_bst.insert("B", "1011");
-        hex_bst.insert("C", "1100");
-        hex_bst.insert("D", "1101");
-        hex_bst.insert("E", "1110");
-        hex_bst.insert("F", "1111");
+        // Create BST from binhex.txt file
+        BST<string, string>* hex_bst = create_bst<string, string>("binhex.txt");
 
         // Boundary Case 1: Long binary string (16 bits = 4 hex digits)
-        string result = convert(&hex_bst, "1111000011110000");
+        string result = convert(hex_bst, "1111000011110000");
         if (result != "F0F0")
         {
             cout << "USECASE BOUNDARY CASE 1 FAILED: Expected 'F0F0' but got: " << result << endl;
         }
 
         // Boundary Case 2: Very long binary string (32 bits = 8 hex digits)
-        result = convert(&hex_bst, "11010110101111001011110011011011");
+        result = convert(hex_bst, "11010110101111001011110011011011");
         if (result != "D6BCBCDB")
         {
             cout << "USECASE BOUNDARY CASE 2 FAILED: Expected 'D6BCBCDB' but got: " << result << endl;
         }
 
         // Boundary Case 3: 5 bits (needs padding to 8 bits = 2 hex)
-        result = convert(&hex_bst, "10101");
+        result = convert(hex_bst, "10101");
         if (result != "15")
         {
             cout << "USECASE BOUNDARY CASE 3 FAILED: Expected '15' but got: " << result << endl;
         }
 
         // Boundary Case 4: Maximum single hex digit value
-        result = convert(&hex_bst, "1111");
+        result = convert(hex_bst, "1111");
         if (result != "F")
         {
             cout << "USECASE BOUNDARY CASE 4 FAILED: Expected 'F' but got: " << result << endl;
         }
 
         // Boundary Case 5: Minimum single hex digit value
-        result = convert(&hex_bst, "0000");
+        result = convert(hex_bst, "0000");
         if (result != "0")
         {
             cout << "USECASE BOUNDARY CASE 5 FAILED: Expected '0' but got: " << result << endl;
         }
+
+        delete hex_bst;  // Clean up
     }
     catch (exception &e)
     {

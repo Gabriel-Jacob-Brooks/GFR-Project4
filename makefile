@@ -10,11 +10,7 @@ test: test_bst.cpp usecase.cpp bst.h bst.cpp binhex.txt
 
 # Main executable
 main: main.cpp bst.h bst.cpp
-	g++ -std=c++11 main.cpp bst.cpp -o main
-
-# Usecase executable (if needed separately)
-usecase: usecase.cpp bst.h bst.cpp
-	g++ -std=c++11 usecase.cpp bst.cpp -o usecase
+	g++ -std=c++11 main.cpp bst.cpp -o usecase
 
 # Run tests
 run-example: test-example
@@ -23,8 +19,8 @@ run-example: test-example
 run-test: test
 	./test
 
-run-main: main
-	./main
+run-main: usecase
+	./usecase
 
 clean:
 	rm -f *.o test test-example main usecase
